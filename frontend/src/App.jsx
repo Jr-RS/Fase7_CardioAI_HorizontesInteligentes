@@ -6,6 +6,7 @@ import Monitoring from "./pages/Monitoring";
 import ImageReview from "./pages/ImageReview";
 import ChatAssistant from "./pages/ChatAssistant";
 import Architecture from "./pages/Architecture";
+import PatientDetail from "./pages/PatientDetail";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="patients" element={<Patients />} />
+        <Route path="patients/:id" element={<PatientDetail />} />
         <Route path="monitoring" element={<Monitoring />} />
         <Route path="image-review" element={<ImageReview />} />
         <Route path="chat" element={<ChatAssistant />} />
