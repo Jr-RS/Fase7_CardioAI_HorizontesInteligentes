@@ -1,3 +1,5 @@
+import { mockPatients } from "../data/mockPatients";
+
 export default function Patients() {
   return (
     <div>
@@ -8,19 +10,15 @@ export default function Patients() {
         </div>
       </section>
 
-      <div className="card">
-        <h3>João Silva</h3>
-        <p>Edad: 58</p>
-        <p>Estado: Crítico</p>
-        <p>Diagnóstico: Sospecha de IAM</p>
-      </div>
-
-      <div className="card">
-        <h3>Maria Souza</h3>
-        <p>Edad: 67</p>
-        <p>Estado: Estable</p>
-        <p>Diagnóstico: Monitoreo preventivo</p>
-      </div>
+      {mockPatients.map((patient) => (
+        <div className="card" key={patient.id}>
+          <h3>{patient.name}</h3>
+          <p>Edad: {patient.age}</p>
+          <p>Sexo: {patient.gender}</p>
+          <p>Estado: {patient.status}</p>
+          <p>Diagnóstico: {patient.diagnosis}</p>
+        </div>
+      ))}
     </div>
   );
 }

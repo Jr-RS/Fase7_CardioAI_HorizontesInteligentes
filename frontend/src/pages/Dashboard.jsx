@@ -1,6 +1,11 @@
 import StatCard from "../components/common/StatCard";
+import { mockPatients } from "../data/mockPatients";
 
 export default function Dashboard() {
+  const totalPatients = mockPatients.length;
+  const criticalPatients = mockPatients.filter((p) => p.status === "Crítico").length;
+  const moderatePatients = mockPatients.filter((p) => p.status === "Moderado").length;
+
   return (
     <div>
       <section className="page-section">
@@ -13,9 +18,9 @@ export default function Dashboard() {
       </section>
 
       <section className="card-grid">
-        <StatCard title="Pacientes monitorados" value="12" subtitle="Base académica demo" />
-        <StatCard title="Alertas activas" value="3" subtitle="Riesgo moderado/alto" />
-        <StatCard title="Exámenes analizados" value="18" subtitle="Módulo visual" />
+        <StatCard title="Pacientes monitorados" value={totalPatients} subtitle="Base académica demo" />
+        <StatCard title="Pacientes críticos" value={criticalPatients} subtitle="Estado crítico" />
+        <StatCard title="Pacientes moderados" value={moderatePatients} subtitle="Seguimiento activo" />
       </section>
 
       <section className="page-section">

@@ -17,6 +17,17 @@ export default function Architecture() {
           <li>Despliegue web en la nube para acceso remoto.</li>
         </ul>
       </div>
+
+      <div className="card">
+        <h3>Datos necesarios del backend</h3>
+        <ul>
+          <li>GET /patients → lista de pacientes.</li>
+          <li>GET /patients/:id → detalle de paciente.</li>
+          <li>GET /vitals/:id → signos vitales por paciente.</li>
+          <li>GET /risk/:id → score y nivel de riesgo.</li>
+          <li>POST /chat → respuesta del asistente.</li>
+        </ul>
+      </div>
     </div>
   );
 }

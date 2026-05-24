@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getMockChatResponse } from "../data/mockChat";
 
 export default function ChatAssistant() {
   const [message, setMessage] = useState("");
@@ -6,7 +7,8 @@ export default function ChatAssistant() {
 
   const handleSend = () => {
     if (!message.trim()) return;
-    setResponse("Respuesta demo del asistente: el sistema indica revisar signos vitales y priorizar evaluación clínica.");
+    const reply = getMockChatResponse(message);
+    setResponse(reply);
   };
 
   return (
