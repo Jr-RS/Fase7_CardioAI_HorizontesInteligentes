@@ -80,6 +80,14 @@ export default function PatientDetail() {
                     <p className="muted">No hay registros de signos vitales.</p>
                 )}
             </div>
+            <div className="card">
+                <h3>Acciones sugeridas</h3>
+                <ul>
+                    <li>Revisar signos vitales recientes.</li>
+                    <li>Evaluar riesgo cardiovascular actual.</li>
+                    <li>Consultar examen de imagen si está disponible.</li>
+                </ul>
+            </div>
         </div>
     );
 }
