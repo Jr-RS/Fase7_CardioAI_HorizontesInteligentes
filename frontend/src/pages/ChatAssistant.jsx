@@ -1,14 +1,25 @@
 import { useState } from "react";
-import { getMockChatResponse } from "../data/mockChat";
+import { sendChatMessage } from "../services/cardioService";
 
 export default function ChatAssistant() {
     const [message, setMessage] = useState("");
     const [response, setResponse] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!message.trim()) return;
-        const reply = getMockChatResponse(message);
-        setResponse(reply);
+
+        try {
+            setLoading(true);
+            setError("");
+            const data = await sendChatMessage(message);
+            setResponse(data.reply || "");
+        } catch (err) {
+            setError("No se pudo obtener respuesta del asistente.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -28,6 +39,7 @@ export default function ChatAssistant() {
                 />
                 <button
                     onClick={handleSend}
+                    disabled={loading}
                     style={{
                         marginTop: "12px",
                         padding: "10px 16px",
@@ -38,13 +50,20 @@ export default function ChatAssistant() {
                         cursor: "pointer"
                     }}
                 >
-                    Enviar
+                    {loading ? "Enviando..." : "Enviar"}
                 </button>
+
+                {error && (
+                    <div style={{ marginTop: "12px" }}>
+                        <strong>Error:</strong>
+                        <p>{error}</p>
+                    </div>
+                )}
 
                 {response && (
                     <div style={{ marginTop: "16px" }}>
                         <strong>Respuesta:</strong>
-                        <p>{response}</p>
+                        <p style={{ whiteSpace: "pre-wrap", lineHeight: 1.5 }}>{response}</p>
                     </div>
                 )}
             </div>

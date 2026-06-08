@@ -1,20 +1,20 @@
-import { mockPatients } from "../data/mockPatients";
-import { mockVitals } from "../data/mockVitals";
-import { mockRisk } from "../data/mockRisk";
+import { api } from "./api";
 
 export async function getPatients() {
-  return Promise.resolve(mockPatients);
+  const response = await api.get("/patients");
+  return response.data;
 }
 
 export async function getPatientById(id) {
-  const patient = mockPatients.find((p) => p.id === Number(id));
-  if (!patient) {
-    throw new Error("Paciente no encontrado.");
-  }
+  const [patient, vitals, risk] = await Promise.all([
+    api.get(`/patients/${id}`),
+    api.get(`/vitals/${id}`),
+    api.get(`/risk/${id}`),
+  ]);
 
-  return Promise.resolve({
-    patient,
-    vitals: mockVitals[id] || [],
-    risk: mockRisk[id] || null,
-  });
+  return {
+    patient: patient.data,
+    vitals: vitals.data,
+    risk: risk.data,
+  };
 }

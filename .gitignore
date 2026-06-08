@@ -1,0 +1,16 @@
+# Variáveis de ambiente / segredos — NUNCA versionar
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+frontend/.env
+backend/.env
+
+# Arquivo digitado incorretamente (era .env) — manter fora do git
+.end
+**/.end
+
+# Backups locais
+*.bak

@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./backend/.env
+    environment:
+      # Teste real: usa os motores de IA reais (XGBoost + TensorFlow), não os stubs.
+      - USE_STUBS=0
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    image: node:20
+    working_dir: /workspace/frontend
+    volumes:
+      - ./frontend:/workspace/frontend
+    command: ["/bin/sh", "-c", "npm install --silent && npm run dev -- --host 0.0.0.0"]
+    ports:
+      - '5173:5173'

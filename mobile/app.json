@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "CardioIA",
+    "slug": "cardioia",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["android"],
+    "android": {
+      "package": "br.com.fiap.cardioia",
+      "versionCode": 1
+    }
+  }
+}

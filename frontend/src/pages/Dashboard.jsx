@@ -1,10 +1,42 @@
+import { useEffect, useState } from "react";
 import StatCard from "../components/common/StatCard";
-import { mockPatients } from "../data/mockPatients";
+import ErrorState from "../components/common/ErrorState";
+import LoadingState from "../components/common/LoadingState";
+import { getDashboardSummary } from "../services/cardioService";
 
 export default function Dashboard() {
-    const totalPatients = mockPatients.length;
-    const criticalPatients = mockPatients.filter((p) => p.status === "Crítico").length;
-    const moderatePatients = mockPatients.filter((p) => p.status === "Moderado").length;
+    const [summary, setSummary] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchSummary = async () => {
+            try {
+                setLoading(true);
+                setError("");
+                const data = await getDashboardSummary();
+                setSummary(data);
+            } catch (err) {
+                setError("No se pudo cargar el resumen del dashboard.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSummary();
+    }, []);
+
+    if (loading) {
+        return <LoadingState message="Cargando resumen del dashboard..." />;
+    }
+
+    if (error) {
+        return <ErrorState message={error} />;
+    }
+
+    const totalPatients = summary?.total_patients ?? 0;
+    const criticalPatients = summary?.critical_patients ?? 0;
+    const moderatePatients = summary?.moderate_patients ?? 0;
 
     return (
         <div>

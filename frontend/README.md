@@ -1,3 +1,13 @@
+## Environment Setup
+
+Copy `frontend/.env.example` to `frontend/.env` and fill in the values before starting the app.
+
+Required values:
+- `VITE_API_URL`: backend URL, usually `http://127.0.0.1:8000`
+
+The Chave_Gemini (`GEMINI_API_KEY`) is used **exclusively by the Backend_CardioIA** (R11.1). Never set it in the Frontend_Web; the React app only talks to the backend via `VITE_API_URL`.
+
+Do not commit `frontend/.env` to git. Keep secrets in your local environment or a secret manager.
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
