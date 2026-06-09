@@ -6,6 +6,8 @@ Guia prático para validar a plataforma de ponta a ponta e gravar o vídeo. Cada
 ## Pré-condições (antes de começar)
 
 - [ ] Backend e frontend no ar (`docker compose up`), ou as URLs públicas (Vercel/Render) ativas.
+  - Frontend: https://fase7-cardio-ai-horizontes-intelige.vercel.app
+  - Backend: https://cardioia-backend-vm45.onrender.com
 - [ ] Chave `GEMINI_API_KEY` configurada no `backend/.env` (chat real).
 - [ ] Fazer **Ctrl+Shift+R** no navegador para descartar cache antigo.
 - [ ] Verificar a saúde do backend: abrir `http://localhost:8000/health` → `{"status":"ok"}`.
