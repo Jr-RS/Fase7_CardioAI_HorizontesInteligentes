@@ -59,9 +59,9 @@ A plataforma é composta por quatro camadas que se comunicam entre si:
 |---|---|
 | 🌐 **Frontend_Web (Vercel)** | https://fase7-cardio-ai-horizontes-intelige.vercel.app |
 | ⚙️ **Backend_CardioIA (Render)** | https://cardioia-backend-vm45.onrender.com |
-| 📱 **APK (EAS Build)** | https://expo.dev/accounts/jr-rs/projects/cardioia/builds |
+| 📱 **APK (EAS Build)** | https://expo.dev/accounts/jr-rs/projects/cardioia/builds/4e20f871-3824-4b81-a814-6d7977a107a6 |
 | 🔌 **Dispositivo_IoT (Wokwi)** | https://wokwi.com/projects/464629362761551873 |
-| 🎬 **Vídeo de Demonstração** | `https://youtu.be/<id-do-video>` *(substituir pelo link real)* |
+| 🎬 **Vídeo de Demonstração** | https://youtu.be/pfKMEb1NlA0 |
 
 ### 📲 QR Code do APK
 
@@ -318,7 +318,7 @@ O roteiro da demonstração fim a fim (≤ 5 min) está em [`docs/roteiro-video.
 e cobre: Login_Mock, navegação no Frontend_Web, chat com LLM, predição de risco, análise de imagem,
 envio de dados pelo Dispositivo_IoT e o App_Mobile carregando o Frontend_Web.
 
-🔗 Vídeo: `https://youtu.be/<id-do-video>` *(substituir pelo link real)*
+🔗 Vídeo: https://youtu.be/pfKMEb1NlA0
 
 ---
 

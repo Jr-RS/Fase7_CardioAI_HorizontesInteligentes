@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório Técnico — CardioIA (Fase 7)</title>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px 60px; line-height: 1.6; color: #1a1a1a; font-size: 11pt; }
+  h1 { font-size: 18pt; margin-bottom: 4px; }
+  h2 { font-size: 14pt; margin-top: 24px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  h3 { font-size: 12pt; margin-top: 16px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 10pt; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+  th { background: #f0f0f0; }
+  .meta { font-size: 10pt; color: #555; margin-bottom: 20px; }
+  .diagram-box { background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 12px 0; font-family: monospace; font-size: 10pt; white-space: pre-line; }
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin-bottom: 4px; }
+  @media print { body { margin: 20px 30px; } }
+  @page { size: A4; margin: 2cm; }
+</style>
+</head>
+<body>
+
+<h1>Relatório Técnico — CardioIA (Fase 7: Horizontes Inteligentes)</h1>
+<p class="meta">
+  <strong>Disciplina:</strong> FIAP — Fase 7 (Horizontes Inteligentes)<br>
+  <strong>Grupo:</strong> 30<br>
+  <strong>Projeto:</strong> Plataforma CardioIA — Sistema Preditivo Cardiológico com IA e IoT
+</p>
+
+<h2>1. Visão Geral da Solução</h2>
+<p>A <strong>Plataforma CardioIA</strong> é um MVP de triagem cardiológica que integra, de ponta a ponta, um dispositivo IoT simulado, um backend de IA e interfaces web e mobile. A solução unifica os módulos das fases anteriores em uma entrega profissional publicada em ambientes de nuvem (Vercel e Render), com aplicativo Android distribuído via APK (Expo/EAS Build).</p>
+
+<p>A plataforma é composta por quatro camadas:</p>
+<ul>
+  <li><strong>Dispositivo_IoT</strong> — simulação MicroPython no Wokwi que lê sinais vitais, executa análise local e envia os dados ao backend.</li>
+  <li><strong>Backend_CardioIA</strong> — serviço FastAPI (hospedado no Render) que expõe os endpoints REST e orquestra os três motores de IA.</li>
+  <li><strong>APIs de IA</strong> — XGBoost (risco preditivo), LLM Google Gemini (chat assistivo) e TensorFlow (análise de imagem).</li>
+  <li><strong>Interfaces (UI)</strong> — Frontend_Web (React + Vite, na Vercel) e App_Mobile (Expo WebView).</li>
+</ul>
+
+<h2>2. Diagrama de Arquitetura</h2>
+<p>O diagrama representa a sequência exigida: <strong>Sensor → MicroPython → Backend Python → APIs de IA → UI</strong>, identificando os motores de IA e as interfaces de usuário.</p>
+
+<div class="diagram-box">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          FLUXO DE DADOS - CardioIA                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐     ┌──────────────────────────────────────────────┐
+│  Dispositivo_IoT     │     │  Backend Python (Render / FastAPI)            │
+│  (Wokwi/MicroPython) │     │                                              │
+│                      │     │  Endpoints REST:                             │
+│  Sensor sinais vitais│     │  /iot/vitals, /risk/{id}, /chat,            │
+│  (FC, SpO2, PA)      │     │  /images/analyze, /patients, ...            │
+│         │            │     │         │          │          │              │
+│         ▼            │     │         ▼          ▼          ▼              │
+│  MicroPython         │     │    ┌─────────┐ ┌────────┐ ┌───────────┐    │
+│  (análise local +    │────▶│    │ XGBoost │ │ Gemini │ │TensorFlow │    │
+│   feedback LED/OLED) │POST │    │ (risco) │ │ (chat) │ │ (imagem)  │    │
+│                      │     │    └─────────┘ └────────┘ └───────────┘    │
+└──────────────────────┘     └───────────────────┬──────────────────────────┘
+                                                 │ HTTPS
+                             ┌───────────────────▼──────────────────────────┐
+                             │  Interfaces (UI)                             │
+                             │                                              │
+                             │  Frontend_Web (React+Vite, Vercel)           │
+                             │  App_Mobile (Expo WebView, APK)              │
+                             └──────────────────────────────────────────────┘
+</div>
+
+<h2>3. Fluxo de Dados (IoT → Backend → IA → UI)</h2>
+<ol>
+  <li><strong>Sensor → MicroPython.</strong> O Dispositivo_IoT no Wokwi realiza a leitura simulada de sinais vitais (frequência cardíaca, SpO2 e pressão arterial sistólica).</li>
+  <li><strong>Análise local + feedback visual.</strong> O MicroPython classifica cada leitura como normal ou alterada (ex.: spo2 &lt; 92 ou heart_rate &gt; 110) e aciona um feedback visual (LED) quando a leitura está fora da faixa.</li>
+  <li><strong>MicroPython → Backend.</strong> Ao final de cada ciclo, o dispositivo envia os sinais vitais via HTTP POST /iot/vitals para a URL pública do Backend_CardioIA.</li>
+  <li><strong>Backend → APIs de IA.</strong> O backend FastAPI orquestra os motores:
+    <ul>
+      <li>GET /risk/{id} → XGBoost retorna a predição de risco (alto, moderado, bajo).</li>
+      <li>POST /chat → LLM Google Gemini retorna a resposta do assistente conversacional.</li>
+      <li>POST /images/analyze → TensorFlow retorna o rótulo e a probabilidade da análise.</li>
+    </ul>
+  </li>
+  <li><strong>Backend → UI.</strong> O Frontend_Web consome os endpoints via VITE_API_URL sobre HTTPS. Caso o backend esteja indisponível, o frontend degrada exibindo dados mock de fallback.</li>
+  <li><strong>UI Mobile.</strong> O App_Mobile (Expo WebView) carrega a URL pública do Frontend_Web na Vercel.</li>
+</ol>
+
+<h3>Endpoints principais</h3>
+<table>
+  <tr><th>Método</th><th>Rota</th><th>Motor / Resultado</th></tr>
+  <tr><td>GET</td><td>/health</td><td>Status do serviço</td></tr>
+  <tr><td>GET</td><td>/dashboard/summary</td><td>Resumo de pacientes</td></tr>
+  <tr><td>GET</td><td>/patients, /patients/{id}</td><td>Dados de pacientes</td></tr>
+  <tr><td>GET</td><td>/vitals/{id}</td><td>Sinais vitais</td></tr>
+  <tr><td>GET</td><td>/risk/{id}</td><td>XGBoost — risco preditivo</td></tr>
+  <tr><td>GET</td><td>/monitoring/summary</td><td>Resumo de monitoramento</td></tr>
+  <tr><td>POST</td><td>/chat</td><td>LLM Google Gemini — chat assistivo</td></tr>
+  <tr><td>POST</td><td>/iot/vitals</td><td>Ingestão dos dados IoT</td></tr>
+  <tr><td>POST</td><td>/images/analyze</td><td>TensorFlow — análise de imagem</td></tr>
+</table>
+
+<h2>4. Stack Tecnológica</h2>
+<table>
+  <tr><th>Camada</th><th>Tecnologia</th><th>Hospedagem</th></tr>
+  <tr><td>Dispositivo_IoT</td><td>MicroPython</td><td>Wokwi (simulação)</td></tr>
+  <tr><td>Backend_CardioIA</td><td>Python + FastAPI</td><td>Render (Docker)</td></tr>
+  <tr><td>IA preditiva</td><td>XGBoost / scikit-learn</td><td>Backend_CardioIA</td></tr>
+  <tr><td>IA conversacional</td><td>LLM Google Gemini</td><td>API Google Gemini (via backend)</td></tr>
+  <tr><td>IA de imagem</td><td>TensorFlow / Keras</td><td>Backend_CardioIA</td></tr>
+  <tr><td>Frontend_Web</td><td>React 19 + Vite</td><td>Vercel</td></tr>
+  <tr><td>App_Mobile</td><td>Expo + react-native-webview</td><td>APK via EAS Build</td></tr>
+</table>
+
+<p>A <strong>segurança da chave de API</strong> é garantida mantendo a credencial exclusivamente no backend (variável de ambiente no Render), nunca no bundle do frontend, com os arquivos .env fora do versionamento.</p>
+
+<h2>5. Integrantes do Grupo 30</h2>
+<table>
+  <tr><th>Nome</th><th>Função</th></tr>
+  <tr><td>Ana Beatriz Duarte Domingues</td><td>Desenvolvimento / Integração</td></tr>
+  <tr><td>Junior Rodrigues da Silva</td><td>Desenvolvimento / Integração</td></tr>
+  <tr><td>Carlos Emilio Castillo Estrada</td><td>Desenvolvimento / Integração</td></tr>
+</table>
+<p><strong>Professores</strong> — Tutor: Lucas Gomes Moreira · Coordenador: André Godoi Chiovato</p>
+
+</body>
+</html>

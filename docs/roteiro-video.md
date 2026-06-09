@@ -125,6 +125,7 @@ carregando o Frontend_Web em uma WebView Android.
 - **Tela:** README/links da entrega (URL da Vercel, link/QR do APK, link do Wokwi).
 - **Narração:** "Essa é a entrega integrada do CardioIA na Fase 7. Todos os links estão no
   README. Obrigado!"
+- **Ação:** mostrar a página do build no Expo (https://expo.dev/accounts/jr-rs/projects/cardioia/builds/4e20f871-3824-4b81-a814-6d7977a107a6) com o botão "Install" e QR Code visível. Isso permite o avaliador escanear e instalar o APK.
 
 ---
 
