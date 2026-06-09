@@ -2,13 +2,21 @@
   "expo": {
     "name": "CardioIA",
     "slug": "cardioia",
+    "owner": "jr-rs",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "android": {
       "package": "br.com.fiap.cardioia",
       "versionCode": 1
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bc80ba36-303b-4049-ae53-ac149d75603b"
+      }
     }
   }
 }
