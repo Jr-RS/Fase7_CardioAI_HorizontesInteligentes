@@ -42,32 +42,41 @@
 <h2>2. Diagrama de Arquitetura</h2>
 <p>O diagrama representa a sequência exigida: <strong>Sensor → MicroPython → Backend Python → APIs de IA → UI</strong>, identificando os motores de IA e as interfaces de usuário.</p>
 
-<div class="diagram-box">
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          FLUXO DE DADOS - CardioIA                          │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────┐     ┌──────────────────────────────────────────────┐
-│  Dispositivo_IoT     │     │  Backend Python (Render / FastAPI)            │
-│  (Wokwi/MicroPython) │     │                                              │
-│                      │     │  Endpoints REST:                             │
-│  Sensor sinais vitais│     │  /iot/vitals, /risk/{id}, /chat,            │
-│  (FC, SpO2, PA)      │     │  /images/analyze, /patients, ...            │
-│         │            │     │         │          │          │              │
-│         ▼            │     │         ▼          ▼          ▼              │
-│  MicroPython         │     │    ┌─────────┐ ┌────────┐ ┌───────────┐    │
-│  (análise local +    │────▶│    │ XGBoost │ │ Gemini │ │TensorFlow │    │
-│   feedback LED/OLED) │POST │    │ (risco) │ │ (chat) │ │ (imagem)  │    │
-│                      │     │    └─────────┘ └────────┘ └───────────┘    │
-└──────────────────────┘     └───────────────────┬──────────────────────────┘
-                                                 │ HTTPS
-                             ┌───────────────────▼──────────────────────────┐
-                             │  Interfaces (UI)                             │
-                             │                                              │
-                             │  Frontend_Web (React+Vite, Vercel)           │
-                             │  App_Mobile (Expo WebView, APK)              │
-                             └──────────────────────────────────────────────┘
+<div class="mermaid">
+flowchart LR
+    subgraph IoT["Dispositivo_IoT (Wokwi / MicroPython)"]
+        direction TB
+        S["Sensor sinais vitais (FC, SpO2, PA)"]
+        MP["MicroPython - análise local + feedback LED"]
+        S --> MP
+    end
+    subgraph Backend["Backend Python (Render / FastAPI)"]
+        direction TB
+        EP["Endpoints REST"]
+        subgraph AI["APIs de IA"]
+            direction TB
+            XGB["XGBoost - risco preditivo"]
+            LLM["Google Gemini - chat assistivo"]
+            TF["TensorFlow - análise de imagem"]
+        end
+        EP --> XGB
+        EP --> LLM
+        EP --> TF
+    end
+    subgraph UI["Interfaces (UI)"]
+        direction TB
+        WEB["Frontend_Web (React+Vite, Vercel)"]
+        APP["App_Mobile (Expo WebView, APK)"]
+    end
+    MP -- "HTTP POST /iot/vitals" --> EP
+    WEB -- "HTTPS / VITE_API_URL" --> EP
+    APP -- "carrega URL pública" --> WEB
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:'default'});</script>
+
+<p><em>Fluxo: Sensor → MicroPython (análise local + LED) → HTTP POST /iot/vitals → Backend FastAPI → XGBoost (risco) + Gemini (chat) + TensorFlow (imagem) → Frontend_Web (Vercel) + App_Mobile (APK)</em></p>
 
 <h2>3. Fluxo de Dados (IoT → Backend → IA → UI)</h2>
 <ol>
