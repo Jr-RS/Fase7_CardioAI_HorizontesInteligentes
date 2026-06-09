@@ -58,7 +58,7 @@ A plataforma é composta por quatro camadas que se comunicam entre si:
 | Entregável | Acesso |
 |---|---|
 | 🌐 **Frontend_Web (Vercel)** | `https://<seu-projeto>.vercel.app` *(substituir pela URL real)* |
-| ⚙️ **Backend_CardioIA (Render)** | `https://<seu-servico>.onrender.com` *(substituir pela URL real)* |
+| ⚙️ **Backend_CardioIA (Render)** | https://cardioia-backend-vm45.onrender.com |
 | 📱 **APK (EAS Build)** | `https://expo.dev/artifacts/<link-do-apk>` *(substituir pelo link real)* |
 | 🔌 **Dispositivo_IoT (Wokwi)** | https://wokwi.com/projects/464629362761551873 |
 | 🎬 **Vídeo de Demonstração** | `https://youtu.be/<id-do-video>` *(substituir pelo link real)* |
