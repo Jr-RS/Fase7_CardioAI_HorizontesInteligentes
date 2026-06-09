@@ -12,7 +12,13 @@
     ],
     "android": {
       "package": "br.com.fiap.cardioia",
-      "versionCode": 1
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      }
+    },
+    "splash": {
+      "backgroundColor": "#0f172a"
     },
     "extra": {
       "eas": {
