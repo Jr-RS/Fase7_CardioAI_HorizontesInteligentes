@@ -1,0 +1,5 @@
+# Arquivos que não fazem parte do app mobile — excluir do upload EAS
+node_modules/
+.expo/
+dist/
+*.log
