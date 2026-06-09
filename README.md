@@ -59,19 +59,16 @@ A plataforma é composta por quatro camadas que se comunicam entre si:
 |---|---|
 | 🌐 **Frontend_Web (Vercel)** | https://fase7-cardio-ai-horizontes-intelige.vercel.app |
 | ⚙️ **Backend_CardioIA (Render)** | https://cardioia-backend-vm45.onrender.com |
-| 📱 **APK (EAS Build)** | `https://expo.dev/artifacts/<link-do-apk>` *(substituir pelo link real)* |
+| 📱 **APK (EAS Build)** | https://expo.dev/accounts/jr-rs/projects/cardioia/builds |
 | 🔌 **Dispositivo_IoT (Wokwi)** | https://wokwi.com/projects/464629362761551873 |
 | 🎬 **Vídeo de Demonstração** | `https://youtu.be/<id-do-video>` *(substituir pelo link real)* |
 
 ### 📲 QR Code do APK
 
-Inclua aqui o QR Code que aponta para o link do APK acima, para o Avaliador instalar no dispositivo
-Android:
+Para instalar o APK no dispositivo Android, acesse a página do build no Expo e escaneie o QR Code
+de instalação: https://expo.dev/accounts/jr-rs/projects/cardioia/builds
 
-<!-- Substitua pelo caminho real da imagem do QR Code após gerar o build no EAS. -->
-<!-- Exemplo: ![QR Code do APK](docs/prints/qrcode-apk.png) -->
-
-`[ QR Code do APK — inserir imagem em docs/prints/qrcode-apk.png ]`
+> Após o build finalizar, a página acima apresenta o QR Code e o link direto do `.apk`.
 
 ---
 
@@ -117,20 +114,21 @@ flowchart LR
 
 ---
 
-## 🖼️ Prints dos Deploys
-
-Inclua aqui as capturas de tela dos deploys bem-sucedidos (R8.5). Salve as imagens em
-`docs/prints/` e referencie-as conforme os exemplos abaixo.
+## 🖼️ Prints dos Deploys e da Aplicação
 
 **Deploy do Frontend_Web na Vercel:**
 
-<!-- ![Deploy Vercel](docs/prints/deploy-vercel.png) -->
-`[ Print do dashboard de deploy da Vercel — inserir em docs/prints/deploy-vercel.png ]`
+![Deploy Vercel](assets/vercel.png)
 
 **Deploy do Backend_CardioIA no Render:**
 
-<!-- ![Deploy Render](docs/prints/deploy-render.png) -->
-`[ Print do serviço Web Service no Render (status Live) — inserir em docs/prints/deploy-render.png ]`
+![Deploy Render](assets/render.png)
+
+**Telas da Aplicação:**
+
+| Login (R4.2) | Dashboard (R5.1) | Pacientes (R5.1) |
+|---|---|---|
+| ![Login](assets/app_login.png) | ![Dashboard](assets/app_dash.png) | ![Pacientes](assets/app_pacients.png) |
 
 ---
 
