@@ -14,7 +14,7 @@ import { WebView } from "react-native-webview";
 
 // URL pública do Frontend_Web hospedado na Vercel (R3.1, R3.5).
 // Substitua o placeholder abaixo pela URL real do deploy na Vercel.
-const FRONTEND_URL = "https://cardioia-fiap.vercel.app";
+const FRONTEND_URL = "https://fase7-cardio-ai-horizontes-intelige.vercel.app";
 
 export default function App() {
   const webViewRef = useRef(null);
