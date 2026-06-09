@@ -14,3 +14,9 @@ backend/.env
 
 # Backups locais
 *.bak
+
+# Python cache
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
