@@ -1,1 +1,7 @@
-https://github.com/Jr-RS/Fase7_CardioAI_HorizontesInteligentes.git
+GitHub: https://github.com/Jr-RS/Fase7_CardioAI_HorizontesInteligentes
+
+Frontend: https://fase7-cardio-ai-horizontes-intelige.vercel.app
+Backend: https://cardioia-backend-vm45.onrender.com
+APK: https://expo.dev/accounts/jr-rs/projects/cardioia/builds/4e20f871-3824-4b81-a814-6d7977a107a6
+Wokwi: https://wokwi.com/projects/464629362761551873
+Vídeo: https://youtu.be/pfKMEb1NlA0
